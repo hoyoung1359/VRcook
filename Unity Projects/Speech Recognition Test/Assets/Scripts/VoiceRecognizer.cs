@@ -91,7 +91,7 @@ public class VoiceRecognizer : MonoBehaviour
                 {
                     pushStream.Write(byteData);
 
-                    Debug.Log($"Pushing audio sample with length: {byteData.Length} to Azure");
+                    // Debug.Log($"Pushing audio sample with length: {byteData.Length} to Azure");
                 }
             }
 
