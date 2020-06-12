@@ -26,8 +26,56 @@ public class CommandExecutor : MonoBehaviour
     {
         Debug.Log($"Recognized result: {result}");
         text.text = result;
+        
+        if (result.StartsWith("타이머"))
+        {
+            int time = 0;
+            Debug.Log("Starting timer");
+            string timeresult = result.Substring(0, result.Length-1);
+            string[] timeList = timeresult.Split(' ');
+            for(int i=0; i<timeList.Length ; i++)
+            {
+                if (timeList[i].EndsWith("시간"))
+                {
+                    try
+                    {
+                        int hour = Int32.Parse(timeList[i].Substring(0, timeList[i].Length - 2));
+                        time += hour * 3600;
+                    }
+                    catch (Exception)
+                    {
+                        Debug.Log($"Unable to parse '{timeList[i]}'");
+                    }
+                }
+                else if (timeList[i].EndsWith("분"))
+                {
+                    try
+                    {
+                        int minute = Int32.Parse(timeList[i].Substring(0, timeList[i].Length - 1));
+                        time += minute * 60;
+                    }
+                    catch (Exception)
+                    {
+                        Debug.Log($"Unable to parse '{timeList[i]}'");
+                    }
+                }
+                else if (timeList[i].EndsWith("초"))
+                {
+                    try
+                    {
+                        int second = Int32.Parse(timeList[i].Substring(0, timeList[i].Length - 1));
+                        time += second;
+                    }
+                    catch (Exception)
+                    {
+                        Debug.Log($"Unable to parse '{timeList[i]}'");
+                    }
+                }
+            }
+            Debug.Log(time);
+        }
 
-        if(result.StartsWith("요청"))
+        if (result.StartsWith("요청"))
         {
             Debug.Log("Starting request");
             databaseRequest.Select("testTable", SelectCallback);
