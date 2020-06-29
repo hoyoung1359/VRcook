@@ -25,6 +25,11 @@ public struct Row
     }
 }
 
+/// <summary>
+/// Performs database queries through intermediate webserver on Azure
+/// Seperating database server connection allows removal
+/// of any related package dependency from this unity project
+/// </summary>
 public class DatabaseRequest : MonoBehaviour
 {
 
