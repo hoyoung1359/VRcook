@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/b7f6213a-47c1-4dfd-b75f-35e4c135f881/resourceGroups/youcancook_rg/providers/Microsoft.Web/sites/youcancook-server",
+    "appService.deploySubpath": "."
+}
