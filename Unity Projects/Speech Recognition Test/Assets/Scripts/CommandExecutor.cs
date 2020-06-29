@@ -81,7 +81,7 @@ public class CommandExecutor : MonoBehaviour
                 }
                 catch (Exception)
                 {
-                    // TODO: handle numbers in korean (e.g. 한시간)
+                    // TODO: handle numbers in korean (e.g. 열시간)
                     Debug.Log($"Unable to parse '{token}'");
                 }
             }
@@ -95,7 +95,7 @@ public class CommandExecutor : MonoBehaviour
                 }
                 catch (Exception)
                 {
-                    // TODO: handle numbers in korean (e.g. 일분)
+                    // TODO: handle numbers in korean (e.g. 삼십분)
                     Debug.Log($"Unable to parse '{token}'");
                 }
             }
@@ -109,7 +109,7 @@ public class CommandExecutor : MonoBehaviour
                 }
                 catch (Exception)
                 {
-                    // TODO: handle numbers in korean (e.g. 일초)
+                    // TODO: handle numbers in korean (e.g. 십오초)
                     Debug.Log($"Unable to parse '{token}'");
                 }
             }
