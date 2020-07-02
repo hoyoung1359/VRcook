@@ -10,9 +10,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(VoiceRecognizer))]
 [RequireComponent(typeof(DatabaseRequest))]
 [RequireComponent(typeof(TimerManager))]
+[RequireComponent(typeof(RecognitionVisualizer))]
 public class CommandExecutor : MonoBehaviour
 {
-    public Text text;
     private DatabaseRequest databaseRequest;
     private TimerManager timerManager;
 
@@ -27,13 +27,16 @@ public class CommandExecutor : MonoBehaviour
 
     private void RecognitionResultHandler(object sender, string result)
     {
-        Debug.Log($"Recognized result: {result}");
-        text.text = result;
-        
         if (result.StartsWith("타이머"))
         {
-            Debug.Log("Starting timer");
-            timerManager.StartTimer(ParseTime(result));
+            try
+            {
+                timerManager.StartTimer(ParseTime(result));
+            }
+            catch(Exception e)
+            {
+                Debug.Log($"Failed to parse timer command('{result}') with error message: '{e.Message}'");
+            }
         }
 
         if (result.StartsWith("요청"))
@@ -74,44 +77,48 @@ public class CommandExecutor : MonoBehaviour
             if (token.EndsWith("시간"))
             {
                 var numericalPart = token.Substring(0, token.Length - 2);
-                try
+                var parseSucceeded = int.TryParse(numericalPart, out int hour);
+
+                if(!parseSucceeded)
                 {
-                    int hour = Int32.Parse(numericalPart);
-                    time += hour * 3600;
-                }
-                catch (Exception)
-                {
-                    // TODO: handle numbers in korean (e.g. 열시간)
                     Debug.Log($"Unable to parse '{token}'");
+
+                    throw new NotImplementedException("handle numbers in korean (e.g. 열시간)");
                 }
+
+                time += hour * 3600;
             }
             else if (token.EndsWith("분"))
             {
                 var numericalPart = token.Substring(0, token.Length - 1);
-                try
+                var parseSucceeded = int.TryParse(numericalPart, out int minute);
+
+                if (!parseSucceeded)
                 {
-                    int minute = Int32.Parse(numericalPart);
-                    time += minute * 60;
-                }
-                catch (Exception)
-                {
-                    // TODO: handle numbers in korean (e.g. 삼십분)
                     Debug.Log($"Unable to parse '{token}'");
+
+                    throw new NotImplementedException("handle numbers in korean (e.g. 삼십분)");
                 }
+
+                time += minute * 60;
             }
             else if (token.EndsWith("초"))
             {
                 var numericalPart = token.Substring(0, token.Length - 1);
-                try
+                var parseSucceeded = int.TryParse(numericalPart, out int seconds);
+
+                if (!parseSucceeded)
                 {
-                    int second = Int32.Parse(numericalPart);
-                    time += second;
-                }
-                catch (Exception)
-                {
-                    // TODO: handle numbers in korean (e.g. 십오초)
                     Debug.Log($"Unable to parse '{token}'");
+
+                    throw new NotImplementedException("handle numbers in korean (e.g. 십오초)");
                 }
+
+                time += seconds;
+            }
+            else if(!token.Equals("타이머"))
+            {
+                throw new Exception($"unexpected token in timer command: {token}");
             }
         }
 

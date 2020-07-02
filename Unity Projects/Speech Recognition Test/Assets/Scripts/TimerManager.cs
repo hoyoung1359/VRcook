@@ -30,12 +30,14 @@ public class TimerManager : MonoBehaviour
 
     public void StartTimer(float seconds)
     {
+        Debug.Log("Starting timer");
         // Timer라는 객체를 만들어서 timers 리스트에 넣자
         // 생성자에 seconds를 넣어주면 된다
     }
 
     private void OnTimerFinish()
     {
+        Debug.Log("Timer finished");
         // 타이머 끝나고 나서 아이콘을 바로 지워버리면 알아채기가 힘드니까 좀 놔뒀다가 사용자가 확인하면 삭제하는
         // 방식으로 해야 하는데 이것도 세부적으로 어떻게 처리할지 정해야 함
         //

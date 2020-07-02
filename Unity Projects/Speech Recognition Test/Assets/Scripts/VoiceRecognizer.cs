@@ -33,15 +33,26 @@ public class VoiceRecognizer : MonoBehaviour
     private string deviceName;                              // Name of recording device
 
     private int lastSamplePos = 0;                          // [lastSamplePos ~ currentSamplePos] is sent to Azure
-    private bool recognizing = false;                       // Set to true when SpeechRecognizer is running
+    private bool isListening = false;                       // Set to true when SpeechRecognizer is running
     private object threadLocker = new object();             // Used for synchronization
 
 
     // Event handling
-    public EventHandler<string> recognitionResultHandler;   // Other componenents should register handler through this variable
+    public EventHandler recognitionStartHandler;            // An event that happens when recognition starts
+
+    public EventHandler<string> recognizingHandler;         // An event that happens while recognizing a statement
+
+    public EventHandler<string> recognitionResultHandler;   // An event that happens when a complete statement is recognized.
                                                             // The string parameter is the recognized result (including a punctuation mark)
+
     private string result;                                  // Lastest recognition result.
-    private bool isResultReady = false;                     // Event handling happens when this flag is set to true.
+
+    private bool isRecognitionStarted = false;              // Recognition start event happens when this flag is set to true
+
+    private bool isRecognizing = false;                     // Recognizing event happens when this flag is set to true.
+                                                            // This flag is activated only while recognition is ongoing.
+
+    private bool isResultReady = false;                     // Recognition result event handling happens when this flag is set to true.
                                                             // For some reason, using Unity Engine's features in SpeechRecognizer's
                                                             // callback functions doesn't seem to work.
                                                             // We instead handle it on regular Update() function by notifying
@@ -60,13 +71,28 @@ public class VoiceRecognizer : MonoBehaviour
         StartRecognizing();
     }
 
+    // Handle the actual event handlers.
+    // We had to do this in indirect way because directly invoking
+    // these handlers insidea VoiceRecognizer's callback didn't work.
     private void Update()
     {
         lock(threadLocker)
         {
+            if(isRecognitionStarted)
+            {
+                isRecognitionStarted = false;
+                recognitionStartHandler.Invoke(this, null);
+            }
+
+            if(isRecognizing)
+            {
+                recognizingHandler.Invoke(this, result);
+            }
+
             if(isResultReady)
             {
                 isResultReady = false;
+                isRecognizing = false;
                 recognitionResultHandler.Invoke(this, result);
             }
         }
@@ -74,7 +100,7 @@ public class VoiceRecognizer : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (recognizing)
+        if (isListening)
         {
             var currentSamplePos = Microphone.GetPosition(deviceName);
             var sampleLength = currentSamplePos - lastSamplePos;
@@ -118,6 +144,20 @@ public class VoiceRecognizer : MonoBehaviour
 
         recognizer = new SpeechRecognizer(speechConfig, LANGUAGE_CODE, audioCongif);
         recognizer.Recognized += RecognizedHandler;
+        recognizer.Recognizing += RecognizingHandler;
+    }
+
+    private void RecognizingHandler(object sender, SpeechRecognitionEventArgs e)
+    {
+        lock(threadLocker)
+        {
+            if(!isRecognizing)
+            {
+                isRecognitionStarted = true;
+                isRecognizing = true;
+            }
+            result = e.Result.Text;
+        }
     }
 
     private void RecognizedHandler(object sender, SpeechRecognitionEventArgs e)
@@ -153,9 +193,9 @@ public class VoiceRecognizer : MonoBehaviour
         }
 
         await recognizer.StartContinuousRecognitionAsync().ConfigureAwait(true);
-        recognizing = true;
+        isListening = true;
 
-        Debug.Log($"Recognition started");
+        Debug.Log($"Recognizer started");
     }
 
     private async void StopRecognizing()
@@ -166,9 +206,9 @@ public class VoiceRecognizer : MonoBehaviour
         }
 
         await recognizer.StopContinuousRecognitionAsync().ConfigureAwait(true);
-        recognizing = false;
+        isListening = false;
 
-        Debug.Log($"Recognition stopped");
+        Debug.Log($"Recognizer stopped");
     }
 
     private byte[] ConvertAudioSampleTo16BitByte(float[] audioSample)
