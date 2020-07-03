@@ -7,9 +7,10 @@ using UnityEngine.UI;
 [RequireComponent(typeof(VoiceRecognizer))]
 public class RecognitionVisualizer : MonoBehaviour
 {
-    public Text recognitionResultText;
-    public Text recognizingText;
+    public GameObject recognitionResult;
+    public LeanTweenType easeType;
     private VoiceRecognizer voiceRecognizer;
+    private Text recognitionResultText;
 
     // Start is called before the first frame update
     void Start()
@@ -18,21 +19,27 @@ public class RecognitionVisualizer : MonoBehaviour
         recognizer.recognitionResultHandler += RecognitionResultHandler;
         recognizer.recognitionStartHandler += RecognitionStartHandler;
         recognizer.recognizingHandler += RecognizingHandler;
+
+        recognitionResultText = recognitionResult.GetComponentInChildren<Text>();
+        recognitionResult.transform.localScale = Vector3.zero;
     }
 
     private void RecognizingHandler(object sender, string result)
     {
-        recognizingText.text = result;
+        recognitionResultText.text = result;
     }
 
     private void RecognitionStartHandler(object sender, EventArgs e)
     {
         Debug.Log("Recognition start");
+        LeanTween.scale(recognitionResult, Vector3.one, 0.5f).setEase(LeanTweenType.easeOutExpo);
     }
 
     private void RecognitionResultHandler(object sender, string result)
     {
         Debug.Log($"Recogntion end: {result}");
         recognitionResultText.text = result;
+
+        LeanTween.scale(recognitionResult, Vector3.zero, 0.5f).setEase(LeanTweenType.easeInOutBack).setDelay(2.0f);
     }
 }
