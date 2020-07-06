@@ -3,24 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Timer
+public class Timer : MonoBehaviour
 {
     private float remainingTime;
     private int totalTime;
 
-    public Timer(int seconds)
+    public EventHandler timerFinishHandler;
+
+    void Update()
+    {
+        if(remainingTime > 0.0f)
+        {
+            remainingTime -= Time.deltaTime;
+            if(remainingTime <= 0.0f)
+            {
+                remainingTime = 0.0f;
+                timerFinishHandler.Invoke(this, null);
+            }
+        }
+    }
+
+    public void Initialize(int seconds)
     {
         totalTime = seconds;
         remainingTime = seconds;
-    }
-
-    // Decrease remaining time by specified deltaTime
-    // Returns true if timer has expired
-    public bool Progress(float deltaTime)
-    {
-        remainingTime -= deltaTime;
-
-        return (remainingTime <= 0.0f);
     }
 
     public float RemainingTimeRatio()
@@ -28,13 +34,12 @@ public class Timer
         return remainingTime / totalTime;
     }
 
-    public int RemainingTime()
+    public string RemainingTimeDescription()
     {
-        return (int)Math.Round(remainingTime);
-    }
+        var time = (int)Math.Round(remainingTime);
+        var minutes = time / 60;
+        var seconds = time % 60;
 
-    public int TotalTime()
-    {
-        return totalTime;
+        return $"{minutes}:{seconds}";
     }
 }

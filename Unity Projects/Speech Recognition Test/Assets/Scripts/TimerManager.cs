@@ -5,45 +5,37 @@ using UnityEngine;
 
 public class TimerManager : MonoBehaviour
 {
-    private List<Timer> timers;
+    public GameObject timerPrefab;
+    public GameObject canvas;
+    private List<GameObject> timers;
 
     void Start()
     {
-        timers = new List<Timer>();
+        timers = new List<GameObject>();
     }
 
     void Update()
     {
-        foreach(var timer in timers)
+        for(int i=0;i<timers.Count;i++)
         {
-            if(timer.Progress(Time.deltaTime))
-            {
-                OnTimerFinish();
-            }
-            else
-            {
-                // 화면 우측 상단에 지금 돌아가는 타이머 목록을 보여줘야 함
-                // 시계 아이콘 옆에 진행도 막대기랑 남은 시간(00:01:40) 문자열 보여주자
-            }
+            timers[i].GetComponent<TimerInfoVisualizer>().timerIndex = i;
         }
     }
 
-    public void StartTimer(float seconds)
+    public void StartTimer(int seconds)
     {
         Debug.Log("Starting timer");
-        // Timer라는 객체를 만들어서 timers 리스트에 넣자
-        // 생성자에 seconds를 넣어주면 된다
+
+        var timer = Instantiate(timerPrefab, canvas.transform);
+        timer.GetComponent<Timer>().Initialize(seconds);
+        timers.Add(timer);
     }
 
-    private void OnTimerFinish()
+    public void DeleteTimer(int timerIndex)
     {
-        Debug.Log("Timer finished");
-        // 타이머 끝나고 나서 아이콘을 바로 지워버리면 알아채기가 힘드니까 좀 놔뒀다가 사용자가 확인하면 삭제하는
-        // 방식으로 해야 하는데 이것도 세부적으로 어떻게 처리할지 정해야 함
-        //
-        // Ex1) "타이머 1번 중지"같은 명령어로 알림 소리 끄고 아이콘 삭제
-        // Ex2) 끝난 타이머 아이콘 3초 바라보면 삭제
-        //
-        // 일단 밑에 적어놨듯이 아이콘을 좀 눈에 띄게 바꾸고 알림 소리 내면 좋을듯
+        Debug.Log($"Deleting timer with index: {timerIndex}");
+        // 타이머를 리스트에서 삭제한다
+        // 한 프레임 안에 타이머를 여럿 삭제하면 인덱스가 불일치하는 문제가 생긴다
+        // 이런 경우가 발생하지 않는지 확인하자
     }
 }

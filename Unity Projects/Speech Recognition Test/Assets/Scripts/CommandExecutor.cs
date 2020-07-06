@@ -29,13 +29,20 @@ public class CommandExecutor : MonoBehaviour
     {
         if (result.StartsWith("타이머"))
         {
-            try
+            if(result.EndsWith("중지"))
             {
-                timerManager.StartTimer(ParseTime(result));
+                // "타이머 x번 중지" 명령어에서 x 파싱해서 timerManager.DeleteTimer() 호출
             }
-            catch(Exception e)
+            else
             {
-                Debug.Log($"Failed to parse timer command('{result}') with error message: '{e.Message}'");
+                try
+                {
+                    timerManager.StartTimer(ParseTime(result));
+                }
+                catch (Exception e)
+                {
+                    Debug.Log($"Failed to parse timer command('{result}') with error message: '{e.Message}'");
+                }
             }
         }
 
@@ -66,6 +73,9 @@ public class CommandExecutor : MonoBehaviour
     //
     // Ex) "타이머 일분 30초." => 90
     //     "타이머 1시간!" => 3600
+    //
+    // 한글로 된 숫자 파싱하는건 다른 함수로 빼서 구현하자!
+    // 어짜피 타이머 취소하는 명령어에서도 사용해야 한다 (e.g. "타이머 삼번 취소")
     private int ParseTime(string timerCommand)
     {
         var timeResult = timerCommand.Substring(0, timerCommand.Length - 1); // Remove punctuation mark

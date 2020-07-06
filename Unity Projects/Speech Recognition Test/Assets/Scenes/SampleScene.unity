@@ -315,6 +315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f0f78979fa6f94289767b2871159a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerPrefab: {fileID: 8741104644654111147, guid: 55c2a1a87ef2ed24fabdf3eb0c3825da,
+    type: 3}
+  canvas: {fileID: 1205315513}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
