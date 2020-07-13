@@ -81,7 +81,7 @@ public class CommandExecutor : MonoBehaviour
             // 명령어: "검색 {키워드}."
             if (result.StartsWith("검색"))
             {
-                var keyword = result.Substring(2);
+                var keyword = result.Substring(3, result.Length - 4);
                 databaseRequest.SelectMenuList(keyword, SelectMenuListCallback);
             }
         }
