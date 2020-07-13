@@ -36,11 +36,18 @@ public class DatabaseRequest : MonoBehaviour
     public delegate void SelectCallback(Row[] result);
 
     private const string SERVER_PATH = "https://youcancook-server.azurewebsites.net";
+    //private const string SERVER_PATH = "localhost:3000";
 
-    // send get request to webserver which will perform sql query on database server and return result
+    // Send get request to webserver which will perform sql query on database server and return result
     public void Select(string tableName, SelectCallback callback)
     {
         StartCoroutine(GetRequest($"{SERVER_PATH}/{tableName}", callback));
+    }
+
+    public void SelectMenuList(string keyword, SelectCallback callback)
+    {
+        Debug.Log($"Searching for menu with keyword: {keyword}");
+        StartCoroutine(GetRequest($"{SERVER_PATH}/foodName?keyword={keyword}", callback));
     }
 
     private IEnumerator GetRequest(string uri, SelectCallback callback)
@@ -52,7 +59,7 @@ public class DatabaseRequest : MonoBehaviour
 
             // parse response
             var responseBody = request.downloadHandler.text.Trim();
-            Debug.Log(responseBody);
+            Debug.Log($"Response body: {responseBody}");
             var rows = responseBody.Split('\n'); // rows are seperated by newline
             var result = new Row[rows.Length];
             for(var rowIndex = 0; rowIndex < rows.Length; rowIndex++)

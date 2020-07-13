@@ -10,7 +10,7 @@ const config = {
   },
   server: "youcancook-db-server.database.windows.net",
   options: {
-    database: "youcancook-testdb",
+    database: "youcancook-db",
     encrypt: true
   }
 };

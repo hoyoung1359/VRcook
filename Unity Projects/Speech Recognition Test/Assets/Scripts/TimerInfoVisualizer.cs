@@ -60,12 +60,7 @@ public class TimerInfoVisualizer : MonoBehaviour
     private void OnTimerFinish(object sender, EventArgs e)
     {
         Debug.Log($"Timer {timerIndex} finished");
-        // 타이머 끝나고 나서 아이콘을 바로 지워버리면 알아채기가 힘드니까 좀 놔뒀다가 사용자가 확인하면 삭제하는
-        // 방식으로 해야 하는데 이것도 세부적으로 어떻게 처리할지 정해야 함
-        //
-        // Ex1) "타이머 1번 중지"같은 명령어로 알림 소리 끄고 아이콘 삭제
-        // Ex2) 끝난 타이머 아이콘 3초 바라보면 삭제
-        //
-        // 일단 밑에 적어놨듯이 아이콘을 좀 눈에 띄게 바꾸고 알림 소리 내면 좋을듯
+        // 상헌: 타이머 끝났다고 알림 소리 내기
+        //       효과음은 아무거나 상관 없음 (나중에 바꾸면 됨)
     }
 }
