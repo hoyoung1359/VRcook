@@ -41,7 +41,7 @@ public class TimerManager : MonoBehaviour
     public void ShowCreateDeleteUI()
     {
         Debug.Log("Showing timer create/delete UI");
-        LeanTween.scale(createDeleteUI, new Vector3(0.01f, 0.01f), 0.5f).setEaseInOutBounce();
+        LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
         // 타이머 시작/중지 버튼 띄우기
         // 시작 버튼 바라보면 isWaitingTimerCommand = true
         // 중지 버튼 바라보면 지금 돌아가는 타이머 목록을 버튼으로 보여주고

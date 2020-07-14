@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class RecognitionVisualizer : MonoBehaviour
 {
     public GameObject recognitionResult;
-    public LeanTweenType easeType;
-    private VoiceRecognizer voiceRecognizer;
     private Text recognitionResultText;
 
     // Start is called before the first frame update

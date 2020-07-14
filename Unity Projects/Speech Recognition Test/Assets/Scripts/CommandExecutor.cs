@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 using UnityScript.Steps;
 
@@ -17,6 +18,9 @@ using UnityScript.Steps;
 [RequireComponent(typeof(MenuListVisualizer))]
 public class CommandExecutor : MonoBehaviour
 {
+    public GameObject notifier;
+    private NotificationVisualizer notificationVisualizer;
+
     private DatabaseRequest databaseRequest;
     private TimerManager timerManager;
     private MenuListVisualizer menuListVisualizer;
@@ -31,6 +35,8 @@ public class CommandExecutor : MonoBehaviour
         databaseRequest = GetComponent<DatabaseRequest>();
         timerManager = GetComponent<TimerManager>();
         menuListVisualizer = GetComponent<MenuListVisualizer>();
+
+        notificationVisualizer = notifier.GetComponent<NotificationVisualizer>();
 
         /* 키워드 포함된 요리 이름 검색 잘 되나 테스트하는 코드
         databaseRequest.SelectMenuList("오므라이스", SelectMenuListCallback);
@@ -60,6 +66,7 @@ public class CommandExecutor : MonoBehaviour
 
                 // 파싱 실패하면 타이머 명령어 대기 취소
                 isWaitingTimerCommand = false;
+                notificationVisualizer.Notify("시간 해석에 실패했습니다. '타이머' 명령어를 다시 시도해주세요.");
             }
         }
         else
