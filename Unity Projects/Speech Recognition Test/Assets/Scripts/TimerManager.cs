@@ -16,10 +16,6 @@ public class TimerManager : MonoBehaviour
     {
         timers = new List<GameObject>();
         timerDeleteListVisualizer = GetComponent<TimerDeleteListVisualizer>();
-
-        StartTimer(30);
-        StartTimer(20);
-        StartTimer(10);
     }
 
     void Update()
