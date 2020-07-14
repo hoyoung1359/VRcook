@@ -56,6 +56,7 @@ public class CommandExecutor : MonoBehaviour
     {
         if(isWaitingTimerCommand)
         {
+            isWaitingTimerCommand = false;
             try
             {
                 timerManager.StartTimer(ParseTime(result));
@@ -63,9 +64,6 @@ public class CommandExecutor : MonoBehaviour
             catch (Exception e)
             {
                 Debug.Log($"Failed to parse timer command('{result}') with error message: '{e.Message}'");
-
-                // 파싱 실패하면 타이머 명령어 대기 취소
-                isWaitingTimerCommand = false;
                 notificationVisualizer.Notify("시간 해석에 실패했습니다. '타이머' 명령어를 다시 시도해주세요.");
             }
         }

@@ -14,6 +14,7 @@ public class GVRButton : MonoBehaviour
 
     private void Start()
     {
+        imgCircle = GameObject.FindGameObjectWithTag("Gaze Reticle").GetComponent<Image>();
         imgCircle.fillAmount = 0.0f;
     }
 

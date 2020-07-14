@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 104116257}
   - component: {fileID: 104116258}
   - component: {fileID: 104116259}
+  - component: {fileID: 104116260}
   m_Layer: 0
   m_Name: VoiceRecognizer
   m_TagString: Untagged
@@ -332,6 +333,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d5009fe0c12b34db4b758bbb101c57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &104116260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104116251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15706eaef957bd2449664cc25c8a69fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerDeleteUIPrefab: {fileID: 8267759531182252314, guid: 20cb49c8e6c5637468d9955586670e82,
+    type: 3}
+  timerDeleteListParent: {fileID: 123224396}
 --- !u!1001 &111897242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,6 +405,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 463285ecd6702471a909ba810832bf0e, type: 3}
+--- !u!1 &123224396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 123224397}
+  m_Layer: 5
+  m_Name: TimerDeleteList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &123224397
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123224396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2003107180}
+  m_Father: {fileID: 561313132}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &194340640
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,6 +880,7 @@ RectTransform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 1202590508}
+  - {fileID: 123224397}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 18.222, z: 0}
@@ -1545,6 +1598,31 @@ MonoBehaviour:
             \"1\uBD84 30\uCD08.\")"
           m_BoolArgument: 0
         m_CallState: 2
+  timerDeletePressedEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 104116258}
+        m_MethodName: ShowTimerDeleteListUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1804283093}
+        m_MethodName: Notify
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: "\uC911\uC9C0\uD560 \uD0C0\uC774\uBA38\uB97C \uC120\uD0DD\uD574\uC8FC\uC138\uC694"
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1205315513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2079,3 +2157,138 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873448000}
   m_CullTransparentMesh: 0
+--- !u!1001 &2003107179
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 123224397}
+    m_Modifications:
+    - target: {fileID: 641974284375314813, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: notifier
+      value: 
+      objectReference: {fileID: 1804283092}
+    - target: {fileID: 641974284375314813, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: voiceRecognizer
+      value: 
+      objectReference: {fileID: 104116251}
+    - target: {fileID: 8267759531182252314, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_Name
+      value: TimerDeleteButtonPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 20cb49c8e6c5637468d9955586670e82, type: 3}
+--- !u!224 &2003107180 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8267759531182252315, guid: 20cb49c8e6c5637468d9955586670e82,
+    type: 3}
+  m_PrefabInstance: {fileID: 2003107179}
+  m_PrefabAsset: {fileID: 0}

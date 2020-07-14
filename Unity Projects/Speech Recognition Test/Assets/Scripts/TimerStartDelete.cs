@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class TimerStartDelete : MonoBehaviour
 {
     public UnityEvent timerStartPressedEvent;
+    public UnityEvent timerDeletePressedEvent;
 
     public void TimerStartButtonPressed()
     {
@@ -19,5 +20,6 @@ public class TimerStartDelete : MonoBehaviour
     {
         Debug.Log("Timer delete pressed");
         LeanTween.scale(gameObject, Vector3.zero, 0.5f).setEaseInOutBack();
+        timerDeletePressedEvent.Invoke();
     }
 }

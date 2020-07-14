@@ -10,7 +10,7 @@ public class TimerInfoVisualizer : MonoBehaviour
 {
     private const float UIWidth = 200.0f;
     private const float UIHeight = 40.0f;
-    private const float transitionSpeed = 0.1f;
+    private const float transitionSpeed = 0.05f;
 
     private RectTransform rectTransform;
     private Text remainingTimeText;
