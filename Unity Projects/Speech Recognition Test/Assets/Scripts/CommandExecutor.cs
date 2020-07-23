@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -200,6 +200,20 @@ public class CommandExecutor : MonoBehaviour
         return time;
     }
 
+    private int KoreanCharToInt(char korean)
+    {
+        char[] koreanInt = { ' ', '일', '이', '삼', '사', '오', '육', '칠', '팔', '구', '십' };
+        if (Array.Exists(koreanInt, element => element == korean))
+        {
+            return Array.IndexOf(koreanInt, korean);
+        }
+        else if (korean == '백')
+        {
+            return 100;
+        }
+        throw new NotImplementedException("failed to convert numbers in korean into an integer(e.g. 십이 => 12");
+    }
+
     // Try to convert a given string, possibly in koreaninto an integer(e.g. "십이" => 12).
     // Throws an exception when failed.
     private int TryParseKoreanNumber(string numericalPart)
@@ -207,7 +221,40 @@ public class CommandExecutor : MonoBehaviour
         // 상헌: 한글로 된 숫자를 정수로 변환하면 됨
         //       혹시 숫자가 아니거나 모종의 이유로 실패하면 그냥 아래처럼 excepion을 아무거나 던져줘
         //       그럼 명령어 처리하는 함수에서 타이머를 실행하는 대신 catch 구문으로 들어갈거야
+
         Debug.Log($"Trying to parse \"{numericalPart}\" as an integer...");
-        throw new NotImplementedException("failed to convert numbers in korean into an integer(e.g. 십이 => 12");
+
+        int result = 0;
+        try
+        {
+            result = int.Parse(numericalPart);
+        }
+        catch
+        {
+            while (numericalPart.Length > 0)
+            {
+                if ((numericalPart[0] == '백' || numericalPart[0] == '십') && numericalPart.Length > 1)
+                {
+                    result += KoreanCharToInt(numericalPart[0]);
+                    numericalPart = numericalPart.Substring(1);
+                }
+                else if (numericalPart.Length > 2)
+                {
+                    result += KoreanCharToInt(numericalPart[0]) * KoreanCharToInt(numericalPart[1]);
+                    numericalPart = numericalPart.Substring(2);
+                }
+                else if (numericalPart.Length == 2)
+                {
+                    result += KoreanCharToInt(numericalPart[0]) * KoreanCharToInt(numericalPart[1]);
+                    numericalPart = "";
+                }
+                else
+                {
+                    result += KoreanCharToInt(numericalPart[0]);
+                    numericalPart = "";
+                }
+            }
+        }
+        return result;
     }
 }
