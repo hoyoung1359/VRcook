@@ -69,8 +69,8 @@ public class CommandExecutor : MonoBehaviour
         }
         else
         {
-            // 명령어: "타이머."
-            if (result.StartsWith("타이머") && result.Length == 4)
+            // 명령어: "타이머.", "Timer."
+            if ((result.StartsWith("타이머") && result.Length == 4) || (result.StartsWith("Timer") && result.Length == 6))
             {
                 timerManager.ShowCreateDeleteUI();
             }
