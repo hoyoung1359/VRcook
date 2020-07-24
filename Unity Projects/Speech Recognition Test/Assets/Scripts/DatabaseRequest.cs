@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Networking;
 public struct Column
@@ -48,6 +49,12 @@ public class DatabaseRequest : MonoBehaviour
     {
         Debug.Log($"Searching for menu with keyword: {keyword}");
         StartCoroutine(GetRequest($"{SERVER_PATH}/foodName?keyword={keyword}", callback));
+    }
+
+    public void SelectCookingStep(int foodID, SelectCallback callback)
+    {
+        Debug.Log($"Selecting all cooking step for food with ID = {foodID}");
+        StartCoroutine(GetRequest($"{SERVER_PATH}/cookingStep?foodID={foodID}", callback));
     }
 
     private IEnumerator GetRequest(string uri, SelectCallback callback)
