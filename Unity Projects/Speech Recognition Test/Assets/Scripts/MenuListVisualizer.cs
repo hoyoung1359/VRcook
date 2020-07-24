@@ -1,6 +1,7 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct MenuInfo
 {
@@ -10,8 +11,21 @@ public struct MenuInfo
 
 public class MenuListVisualizer : MonoBehaviour
 {
+    public GameObject menuPrefab;
+    public Transform menuHolder;
+    public GameObject createDeleteUI;
+
     public void ShowMenuList(List<MenuInfo> menuList)
     {
+        createDeleteUI.SetActive(true);
+        LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
+
+        for (int i = 0; i < menuList.Count; i++)
+        {
+            GameObject menu = Instantiate(menuPrefab, menuHolder);
+            menu.GetComponentInChildren<Text>().text = menuList[i].name;
+            menu.GetComponentInChildren<MenuID>().id = menuList[i].id;
+        }
         // 명섭: menuList에 있는 name들로 UI 띄우기.
         //       아래 코드를 보면 메뉴마다 id랑 name이 있는데,
         //       name은 텍스트로 보여주면 되고 id는 그냥 UI마다 저장하기만 하면 됨.
