@@ -41,7 +41,7 @@ public class TimerDeleteButton : MonoBehaviour
         Debug.Log($"Setting timer index of this button to {timerIndex}");
         this.timerIndex = timerIndex;
 
-        GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 40.0f) * timerIndex;
+        //GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 40.0f) * timerIndex;
     }
 
     public void OnClick()

@@ -7,8 +7,22 @@ public class TimerDeleteListVisualizer : MonoBehaviour
     public GameObject timerDeleteUIPrefab;
     public GameObject timerDeleteListParent;
 
+    private NotificationVisualizer notificationVisualizer;
+
+    void Start()
+    {
+        notificationVisualizer = GameObject.FindGameObjectWithTag("Notifier").GetComponent<NotificationVisualizer>();
+    }
+
     public void ShowList(int listSize)
     {
+        if(listSize == 0)
+        {
+            Debug.Log("Timer list is empty");
+            notificationVisualizer.Notify("활성화된 타이머가 없습니다.");
+
+            return;
+        }
         Debug.Log("Showing list of deletable timers");
         for(int i=0; i < listSize; i++)
         {

@@ -12,7 +12,7 @@ public class TimerManager : MonoBehaviour
     private List<GameObject> timers;
     private TimerDeleteListVisualizer timerDeleteListVisualizer;
 
-    void Start()
+    void Awake()
     {
         timers = new List<GameObject>();
         timerDeleteListVisualizer = GetComponent<TimerDeleteListVisualizer>();
