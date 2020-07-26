@@ -42,12 +42,12 @@ public class CommandExecutor : MonoBehaviour
         databaseRequest.SelectMenuList("오므라이스", SelectMenuListCallback);
         */
 
-        /* 타이머 삭제 테스트할때 매번 생성하지 않도록 하는 코드*/
-        //timerManager.StartTimer(30);
-        //timerManager.StartTimer(20);
-        //timerManager.StartTimer(10);
+        /* 타이머 삭제 테스트할때 매번 생성하지 않도록 하는 코드
+        timerManager.StartTimer(30);
+        timerManager.StartTimer(20);
+        timerManager.StartTimer(10);
         timerManager.ShowCreateDeleteUI();
-        //*/
+        */
     }
 
     // Turns command executor into a waiting state,
@@ -116,6 +116,13 @@ public class CommandExecutor : MonoBehaviour
 
     private void SelectMenuListCallback(Row[] result)
     {
+        if(result == null)
+        {
+            notificationVisualizer.Notify("제시된 키워드가 포함된 요리가 없습니다.");
+
+            return;
+        }
+
         List<MenuInfo> menuList = new List<MenuInfo>();
         foreach(var row in result)
         {

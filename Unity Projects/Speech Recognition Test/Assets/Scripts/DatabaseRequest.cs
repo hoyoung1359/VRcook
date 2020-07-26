@@ -67,20 +67,28 @@ public class DatabaseRequest : MonoBehaviour
             // parse response
             var responseBody = request.downloadHandler.text.Trim();
             Debug.Log($"Response body: {responseBody}");
-            var rows = responseBody.Split('\n'); // rows are seperated by newline
-            var result = new Row[rows.Length];
-            for(var rowIndex = 0; rowIndex < rows.Length; rowIndex++)
-            {
-                var columns = rows[rowIndex].Split(','); // columns are seperated by comma
-                result[rowIndex] = new Row(columns.Length);
-                for(var columnIndex = 0; columnIndex < columns.Length; columnIndex++)
-                {
-                    var columnData = columns[columnIndex].Split(':'); // each column is stored in format "[column name]:[column value]"
-                    result[rowIndex].columns[columnIndex] = new Column(columnData[0], columnData[1]);
-                }
-            }
 
-            callback(result);
+            if(responseBody.Length > 0)
+            {
+                var rows = responseBody.Split('\n'); // rows are seperated by newline
+                var result = new Row[rows.Length];
+                for (var rowIndex = 0; rowIndex < rows.Length; rowIndex++)
+                {
+                    var columns = rows[rowIndex].Split(','); // columns are seperated by comma
+                    result[rowIndex] = new Row(columns.Length);
+                    for (var columnIndex = 0; columnIndex < columns.Length; columnIndex++)
+                    {
+                        var columnData = columns[columnIndex].Split(':'); // each column is stored in format "[column name]:[column value]"
+                        result[rowIndex].columns[columnIndex] = new Column(columnData[0], columnData[1]);
+                    }
+                }
+
+                callback(result);
+            }
+            else
+            {
+                callback(null);
+            }
         }
     }
 }
