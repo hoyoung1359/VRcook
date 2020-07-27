@@ -7,9 +7,12 @@ router.get('/', (req, res, next) => {
 
     // generate query statement
     var request = new Request(
-        'SELECT CookingStep.Description, Recipe.CookingOrder '+
-        'FROM Recipe join CookingStep on Recipe.CookingStepID = CookingStep.ID where Recipe.FoodID = '
-        + req.query.foodID, err => {
+        'SELECT Recipe.CookingStepID, CookingStep.Description '+
+        'FROM Recipe '+
+        'join CookingStep '+
+        'on Recipe.CookingStepID = CookingStep.ID where Recipe.FoodID = ' + req.query.foodID +
+        'ORDER BY Recipe.CookingOrder',
+        err => {
             if(err) {
                 console.error(err.message);
             }
