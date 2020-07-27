@@ -9,6 +9,6 @@ public class MenuID : MonoBehaviour
 
     public void getRecipe()
     {
-
+        Debug.Log($"selected id: {id}");
     }
 }

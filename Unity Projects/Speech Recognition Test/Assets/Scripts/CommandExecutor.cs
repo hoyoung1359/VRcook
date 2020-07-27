@@ -38,9 +38,9 @@ public class CommandExecutor : MonoBehaviour
 
         notificationVisualizer = notifier.GetComponent<NotificationVisualizer>();
 
-        /* 키워드 포함된 요리 이름 검색 잘 되나 테스트하는 코드
+        ///* 키워드 포함된 요리 이름 검색 잘 되나 테스트하는 코드
         databaseRequest.SelectMenuList("오므라이스", SelectMenuListCallback);
-        */
+        //*/
 
         /* 타이머 삭제 테스트할때 매번 생성하지 않도록 하는 코드
         timerManager.StartTimer(30);
