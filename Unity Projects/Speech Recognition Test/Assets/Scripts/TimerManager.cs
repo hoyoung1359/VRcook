@@ -46,7 +46,6 @@ public class TimerManager : MonoBehaviour
     {
         Debug.Log("Showing timer create/delete UI");
         LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
-        timerDeleteListVisualizer.HideList(true);
     }
 
     public void ShowTimerDeleteListUI()

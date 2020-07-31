@@ -47,7 +47,7 @@ public class TimerDeleteButton : MonoBehaviour
     public void OnClick()
     {
         timerManager.DeleteTimer(timerIndex);
-        timerDeleteListVisualizer.HideList(false);
+        timerDeleteListVisualizer.HideList();
         notificationVisualizer.Notify($"타이머 {timerIndex}을/를 중지했습니다");
     }
 }
