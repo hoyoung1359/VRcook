@@ -7,6 +7,7 @@ TagManager:
   - VoiceRecognizer
   - Notifier
   - Gaze Reticle
+  - WorldSpaceCanvas
   layers:
   - Default
   - TransparentFX

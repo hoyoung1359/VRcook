@@ -1016,9 +1016,10 @@ GameObject:
   - component: {fileID: 561313131}
   - component: {fileID: 561313130}
   - component: {fileID: 561313129}
+  - component: {fileID: 561313133}
   m_Layer: 5
   m_Name: World Space Canvas
-  m_TagString: Untagged
+  m_TagString: WorldSpaceCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1105,6 +1106,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0.95, y: 0}
   m_SizeDelta: {x: 912, y: 392}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &561313133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561313128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a600ce6909b3e2d46ab9153f4b7bd91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceFromCamera: 3.14
 --- !u!1 &638666307
 GameObject:
   m_ObjectHideFlags: 0
