@@ -19,11 +19,6 @@ using UnityEngine.Android;
 [RequireComponent(typeof(AudioSource))]
 public class VoiceRecognizer : MonoBehaviour
 {
-    // Azure subscription information constants
-    private const string SUBSCRIPTION_KEY = "2a90829d0cdc4b9a96cb054796a0e6d2";
-    private const string SUBSCRIPTION_REGION = "koreacentral";
-    private const string LANGUAGE_CODE = "ko-KR";
-
     // Azure STT related variables
     private SpeechRecognizer recognizer;
     private PushAudioInputStream pushStream;
@@ -140,9 +135,16 @@ public class VoiceRecognizer : MonoBehaviour
         pushStream = AudioInputStream.CreatePushStream();
         audioCongif = AudioConfig.FromStreamInput(pushStream);
 
-        speechConfig = SpeechConfig.FromSubscription(SUBSCRIPTION_KEY, SUBSCRIPTION_REGION);
+        speechConfig = SpeechConfig.FromSubscription(
+            AzureSubscription.SUBSCRIPTION_KEY, 
+            AzureSubscription.SUBSCRIPTION_REGION
+        );
 
-        recognizer = new SpeechRecognizer(speechConfig, LANGUAGE_CODE, audioCongif);
+        recognizer = new SpeechRecognizer(
+            speechConfig, 
+            AzureSubscription.LANGUAGE_CODE, 
+            audioCongif
+        );
         recognizer.Recognized += RecognizedHandler;
         recognizer.Recognizing += RecognizingHandler;
     }

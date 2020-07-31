@@ -27,7 +27,6 @@ public class CommandExecutor : MonoBehaviour
     private WorldSpaceCanvasController worldSpaceCanvas;
 
     private bool isWaitingTimerCommand = false;
-    private bool isCommandLocked = false;
 
     void Start() 
     {
