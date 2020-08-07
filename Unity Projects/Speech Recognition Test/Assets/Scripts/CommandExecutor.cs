@@ -44,12 +44,27 @@ public class CommandExecutor : MonoBehaviour
         databaseRequest.SelectMenuList("오므라이스", SelectMenuListCallback);
         //*/
 
-        ///* 타이머 삭제 테스트할때 매번 생성하지 않도록 하는 코드
+        /* 타이머 삭제 테스트할때 매번 생성하지 않도록 하는 코드
         timerManager.StartTimer(30);
         timerManager.StartTimer(20);
         timerManager.StartTimer(10);
         timerManager.ShowCreateDeleteUI();
         //*/
+
+        ///* 조리 단계 잘 가져오나 테스트하는 코드
+        databaseRequest.SelectCookingStep(1, TestCallback);
+        //*/
+    }
+
+    private void TestCallback(Row[] result)
+    {
+        foreach(var row in result)
+        {
+            foreach(var column in row.columns)
+            {
+                Debug.Log($"{column.name}:{column.value}");
+            }
+        }
     }
 
     // Turns command executor into a waiting state,

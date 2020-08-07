@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
 
             // each column is seperated by comma
             if(index < columns.length-1) {
-            res.write(",");
+            res.write("#");
             }
         })
 

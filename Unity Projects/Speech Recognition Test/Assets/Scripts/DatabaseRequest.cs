@@ -74,7 +74,7 @@ public class DatabaseRequest : MonoBehaviour
                 var result = new Row[rows.Length];
                 for (var rowIndex = 0; rowIndex < rows.Length; rowIndex++)
                 {
-                    var columns = rows[rowIndex].Split(','); // columns are seperated by comma
+                    var columns = rows[rowIndex].Split('#'); // columns are seperated by sharp
                     result[rowIndex] = new Row(columns.Length);
                     for (var columnIndex = 0; columnIndex < columns.Length; columnIndex++)
                     {
