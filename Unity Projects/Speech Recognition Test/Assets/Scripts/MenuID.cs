@@ -7,8 +7,9 @@ public class MenuID : MonoBehaviour
 {
     public int id;
 
-    public void getRecipe()
+    public int getID()
     {
-        Debug.Log($"selected id: {id}");
+        return id;
     }
+
 }

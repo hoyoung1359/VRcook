@@ -187,7 +187,8 @@ MonoBehaviour:
   GVRClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 563019298857846161}
+      - m_Target: {fileID: 5982259705640189066, guid: 49bb805a924f0b34ca508a9d29829e50,
+          type: 3}
         m_MethodName: getRecipe
         m_Mode: 1
         m_Arguments:
