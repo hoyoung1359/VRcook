@@ -51,11 +51,12 @@ public class CommandExecutor : MonoBehaviour
         timerManager.ShowCreateDeleteUI();
         //*/
 
-        ///* 조리 단계 잘 가져오나 테스트하는 코드
+        /* 조리 단계 잘 가져오나 테스트하는 코드
         databaseRequest.SelectCookingStep(1, TestCallback);
         //*/
     }
 
+    /*
     private void TestCallback(Row[] result)
     {
         foreach(var row in result)
@@ -66,6 +67,7 @@ public class CommandExecutor : MonoBehaviour
             }
         }
     }
+    //*/
 
     // Turns command executor into a waiting state,
     // which will then try to parse the consequent recognition

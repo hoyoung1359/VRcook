@@ -7,9 +7,9 @@ public class MenuID : MonoBehaviour
 {
     public int id;
 
-    public int getID()
+    public void OnClick()
     {
-        return id;
+        Debug.Log($"Requesting cooking step with food id : {id}");
+        GameObject.FindGameObjectWithTag("RecipeGuide").GetComponent<RecipeGuide>().getRecipe(id);
     }
-
 }

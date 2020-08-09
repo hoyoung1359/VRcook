@@ -8,6 +8,7 @@ TagManager:
   - Notifier
   - Gaze Reticle
   - WorldSpaceCanvas
+  - RecipeGuide
   layers:
   - Default
   - TransparentFX

@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 7794967692626897893}
   - component: {fileID: -4159639761305016257}
   - component: {fileID: -3649490119057744425}
+  - component: {fileID: 1123713918483146330}
   m_Layer: 5
   m_Name: MenuPrefab
   m_TagString: Untagged
@@ -170,7 +171,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7794967692626897898}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-4159639761305016257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,9 +199,8 @@ MonoBehaviour:
   GVRClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5982259705640189066, guid: 49bb805a924f0b34ca508a9d29829e50,
-          type: 3}
-        m_MethodName: getRecipe
+      - m_Target: {fileID: 1123713918483146330}
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -244,6 +255,19 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1123713918483146330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794967692626897895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc1ded5438de1b0408ee8b03f7537492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
 --- !u!1 &7794967693975973634
 GameObject:
   m_ObjectHideFlags: 0
