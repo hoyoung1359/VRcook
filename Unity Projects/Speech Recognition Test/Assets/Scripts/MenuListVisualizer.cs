@@ -9,14 +9,13 @@ public struct MenuInfo
     public string name;
 }
 
-public class MenuListVisualizer : ScreenSpaceInteraction
+public class MenuListVisualizer : MonoBehaviour
 {
     public GameObject menuPrefab;
     public Transform menuHolder;
     public GameObject createDeleteUI;
-    private List<MenuInfo> menuList;
 
-    public override void onActivate()
+    public void ShowMenuList(List<MenuInfo> menuList)
     {
         createDeleteUI.SetActive(true);
         LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
@@ -35,28 +34,10 @@ public class MenuListVisualizer : ScreenSpaceInteraction
         }
     }
 
-    public override void onDeactivate()
-    {
-        Debug.Log("Hiding menulist");
-        LeanTween.scale(menuHolder.gameObject, Vector3.zero, 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
-    }
-
-    public List<MenuInfo> MenuList
-    {
-        set
-        {
-            menuList = value;
-        }
-    }
-
-    public void ShowMenuList(List<MenuInfo> menuList)
-    {
-        this.activate();
-    }
-
     public void HideMenuList()
     {
-        this.deactivate();
+        Debug.Log("Hiding menu list");
+        LeanTween.scale(menuHolder.gameObject, Vector3.zero, 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
     }
 
     private void DeleteChildButtons()
