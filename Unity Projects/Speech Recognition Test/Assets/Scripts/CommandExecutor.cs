@@ -14,6 +14,7 @@ using UnityScript.Steps;
 [RequireComponent(typeof(VoiceRecognizer))]
 [RequireComponent(typeof(DatabaseRequest))]
 [RequireComponent(typeof(TimerManager))]
+[RequireComponent(typeof(ScreenSpaceInteractionManager))]
 [RequireComponent(typeof(RecognitionVisualizer))]
 [RequireComponent(typeof(MenuListVisualizer))]
 public class CommandExecutor : MonoBehaviour
@@ -23,6 +24,7 @@ public class CommandExecutor : MonoBehaviour
 
     private DatabaseRequest databaseRequest;
     private TimerManager timerManager;
+    public static ScreenSpaceInteractionManager screenSpaceInteractionManager;
     private MenuListVisualizer menuListVisualizer;
     private WorldSpaceCanvasController worldSpaceCanvas;
 
@@ -35,14 +37,15 @@ public class CommandExecutor : MonoBehaviour
 
         databaseRequest = GetComponent<DatabaseRequest>();
         timerManager = GetComponent<TimerManager>();
+        screenSpaceInteractionManager = GetComponent<ScreenSpaceInteractionManager>();
         menuListVisualizer = GetComponent<MenuListVisualizer>();
 
         notificationVisualizer = notifier.GetComponent<NotificationVisualizer>();
         worldSpaceCanvas = GameObject.FindGameObjectWithTag("WorldSpaceCanvas").GetComponent<WorldSpaceCanvasController>();
 
-        // 키워드 포함된 요리 이름 검색 잘 되나 테스트하는 코드
+        /* 키워드 포함된 요리 이름 검색 잘 되나 테스트하는 코드
         databaseRequest.SelectMenuList("오므라이스", SelectMenuListCallback);
-        
+        //*/
 
         /* 타이머 삭제 테스트할때 매번 생성하지 않도록 하는 코드
         timerManager.StartTimer(30);
@@ -51,12 +54,11 @@ public class CommandExecutor : MonoBehaviour
         timerManager.ShowCreateDeleteUI();
         //*/
 
-        /* 조리 단계 잘 가져오나 테스트하는 코드
+        ///* 조리 단계 잘 가져오나 테스트하는 코드
         databaseRequest.SelectCookingStep(1, TestCallback);
         //*/
     }
 
-    /*
     private void TestCallback(Row[] result)
     {
         foreach(var row in result)
@@ -67,7 +69,6 @@ public class CommandExecutor : MonoBehaviour
             }
         }
     }
-    //*/
 
     // Turns command executor into a waiting state,
     // which will then try to parse the consequent recognition
