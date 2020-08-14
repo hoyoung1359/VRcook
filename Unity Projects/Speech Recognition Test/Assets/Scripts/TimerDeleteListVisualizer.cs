@@ -1,12 +1,14 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimerDeleteListVisualizer : MonoBehaviour
+public class TimerDeleteListVisualizer : ScreenSpaceInteraction
 {
     public GameObject timerDeleteUIPrefab;
     public GameObject timerDeleteListParent;
 
+    private int listSize;
+    private bool instantly;
     private NotificationVisualizer notificationVisualizer;
 
     void Start()
@@ -14,9 +16,26 @@ public class TimerDeleteListVisualizer : MonoBehaviour
         notificationVisualizer = GameObject.FindGameObjectWithTag("Notifier").GetComponent<NotificationVisualizer>();
     }
 
-    public void ShowList(int listSize)
+    public int ListSize
     {
-        if(listSize == 0)
+        set
+        {
+            listSize = value;
+        }
+    }
+
+    public bool Instantly
+    {
+        set
+        {
+            instantly = value;
+        }
+    }
+
+
+    public override void onActivate()
+    {
+        if (listSize == 0)
         {
             Debug.Log("Timer list is empty");
             notificationVisualizer.Notify("활성화된 타이머가 없습니다.");
@@ -25,7 +44,7 @@ public class TimerDeleteListVisualizer : MonoBehaviour
         }
         Debug.Log("Showing list of deletable timers");
         DeleteChildButtons(); // Delete existing buttons, so that duplicate command will not cause duplicate buttons
-        for(int i=0; i < listSize; i++)
+        for (int i = 0; i < listSize; i++)
         {
             var timerDeleteUI = Instantiate(timerDeleteUIPrefab, timerDeleteListParent.transform);
             timerDeleteUI.GetComponent<TimerDeleteButton>().SetTimerIndex(i);
@@ -33,10 +52,20 @@ public class TimerDeleteListVisualizer : MonoBehaviour
         LeanTween.scale(timerDeleteListParent, Vector3.one, 0.5f).setEaseInExpo();
     }
 
-    public void HideList(bool instantly)
+    public override void onDeactivate()
     {
         Debug.Log("Hiding list of deletable timers");
         LeanTween.scale(timerDeleteListParent, Vector3.zero, instantly ? 0.0f : 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
+    }
+
+    public void ShowList(int listSize)
+    {
+        this.activate();
+    }
+
+    public void HideList(bool instantly)
+    {
+        this.deactivate();
     }
 
     private void DeleteChildButtons()
