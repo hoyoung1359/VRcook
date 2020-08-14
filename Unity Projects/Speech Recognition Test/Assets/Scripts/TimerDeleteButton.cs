@@ -12,9 +12,18 @@ public class TimerDeleteButton : MonoBehaviour
     private TimerManager timerManager;
     private TimerDeleteListVisualizer timerDeleteListVisualizer;
 
-    private Text text;
+    public Text text;
 
     public int timerIndex;
+
+    public int TimerIndex
+    {
+        set
+        {
+            timerIndex = value;
+            text.text = $"타이머 {timerIndex} 중지";
+        }
+    }
 
     private void Start()
     {
@@ -24,30 +33,12 @@ public class TimerDeleteButton : MonoBehaviour
         voiceRecognizer = GameObject.FindGameObjectWithTag("VoiceRecognizer");
         timerManager = voiceRecognizer.GetComponent<TimerManager>();
         timerDeleteListVisualizer = voiceRecognizer.GetComponent<TimerDeleteListVisualizer>();
-        text = GetComponentInChildren<Text>(true);
-    }
-
-    private void Update()
-    {
-        if(text == null)
-        {
-            text = GetComponentInChildren<Text>();
-        }
-        text.text = $"타이머 {timerIndex} 중지";
-    }
-
-    public void SetTimerIndex(int timerIndex)
-    {
-        Debug.Log($"Setting timer index of this button to {timerIndex}");
-        this.timerIndex = timerIndex;
-
-        //GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 40.0f) * timerIndex;
     }
 
     public void OnClick()
     {
-        timerManager.DeleteTimer(timerIndex);
-        timerDeleteListVisualizer.HideList(false);
         notificationVisualizer.Notify($"타이머 {timerIndex}을/를 중지했습니다");
+        timerManager.DeleteTimer(timerIndex);
+        timerDeleteListVisualizer.deactivate();
     }
 }
