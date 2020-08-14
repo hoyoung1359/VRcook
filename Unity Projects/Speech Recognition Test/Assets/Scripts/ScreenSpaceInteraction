@@ -1,0 +1,33 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ScreenSpaceInteraction : MonoBehaviour
+{
+    private bool activated;
+    
+    public void activate()
+    {
+        if (CommandExecutor.screenSpaceInteractionManager.lastActiveInstance != null)
+            CommandExecutor.screenSpaceInteractionManager.lastActiveInstance.deactivate();
+        CommandExecutor.screenSpaceInteractionManager.lastActiveInstance = this;
+        onActivate();
+    }
+
+    public void deactivate()
+    {
+        CommandExecutor.screenSpaceInteractionManager.lastActiveInstance = null;
+        onDeactivate();
+    }
+
+    public virtual void onActivate()
+    {
+        activated = true;
+    }
+
+    public virtual void onDeactivate()
+    {
+        activated = false;
+    }
+}
