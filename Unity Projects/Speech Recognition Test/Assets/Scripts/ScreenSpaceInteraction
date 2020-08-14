@@ -15,8 +15,8 @@ public class ScreenSpaceInteraction : MonoBehaviour
 
     public void deactivate()
     {
-        CommandExecutor.screenSpaceInteractionManager.lastActiveInstance = null;
         onDeactivate();
+        CommandExecutor.screenSpaceInteractionManager.lastActiveInstance = null;
     }
 
     public virtual void onActivate()
