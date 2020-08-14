@@ -13,34 +13,8 @@ public class MenuListVisualizer : ScreenSpaceInteraction
 {
     public GameObject menuPrefab;
     public Transform menuHolder;
-    public GameObject createDeleteUI;
+    public GameObject menuListParent;
     private List<MenuInfo> menuList;
-
-    public override void onActivate()
-    {
-        createDeleteUI.SetActive(true);
-        LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
-
-        DeleteChildButtons(); // Delete existing buttons, so that duplicate command will not cause duplicate buttons
-        for (int i = 0; i < menuList.Count; i++)
-        {
-            GameObject menu = Instantiate(menuPrefab, menuHolder);
-            menu.GetComponentInChildren<Text>().text = menuList[i].name;
-            menu.GetComponentInChildren<MenuID>().id = menuList[i].id;
-        }
-
-        foreach (var menu in menuList)
-        {
-            Debug.Log($"MenuVisualizer => {menu.id}:{menu.name}");
-        }
-    }
-
-    public override void onDeactivate()
-    {
-        Debug.Log("Hiding menulist");
-        LeanTween.scale(menuHolder.gameObject, Vector3.zero, 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
-    }
-
     public List<MenuInfo> MenuList
     {
         set
@@ -49,14 +23,22 @@ public class MenuListVisualizer : ScreenSpaceInteraction
         }
     }
 
-    public void ShowMenuList(List<MenuInfo> menuList)
+    public override void onActivate()
     {
-        this.activate();
+        // Create button instances
+        for (int i = 0; i < menuList.Count; i++)
+        {
+            GameObject menu = Instantiate(menuPrefab, menuHolder);
+            menu.GetComponentInChildren<Text>().text = menuList[i].name;
+            menu.GetComponentInChildren<MenuID>().id = menuList[i].id;
+        }
+
+        LeanTween.scale(menuListParent, Vector3.one, 0.5f).setEaseInOutExpo();
     }
 
-    public void HideMenuList()
+    public override void onDeactivate()
     {
-        this.deactivate();
+        LeanTween.scale(menuListParent, Vector3.zero, 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
     }
 
     private void DeleteChildButtons()
