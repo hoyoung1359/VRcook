@@ -9,18 +9,23 @@ public struct MenuInfo
     public string name;
 }
 
-public class MenuListVisualizer : MonoBehaviour
+public class MenuListVisualizer : ScreenSpaceInteraction
 {
     public GameObject menuPrefab;
     public Transform menuHolder;
-    public GameObject createDeleteUI;
-
-    public void ShowMenuList(List<MenuInfo> menuList)
+    public GameObject menuListParent;
+    private List<MenuInfo> menuList;
+    public List<MenuInfo> MenuList
     {
-        createDeleteUI.SetActive(true);
-        LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
+        set
+        {
+            menuList = value;
+        }
+    }
 
-        DeleteChildButtons(); // Delete existing buttons, so that duplicate command will not cause duplicate buttons
+    public override void onActivate()
+    {
+        // Create button instances
         for (int i = 0; i < menuList.Count; i++)
         {
             GameObject menu = Instantiate(menuPrefab, menuHolder);
@@ -28,16 +33,12 @@ public class MenuListVisualizer : MonoBehaviour
             menu.GetComponentInChildren<MenuID>().id = menuList[i].id;
         }
 
-        foreach (var menu in menuList)
-        {
-            Debug.Log($"MenuVisualizer => {menu.id}:{menu.name}");
-        }
+        LeanTween.scale(menuListParent, Vector3.one, 0.5f).setEaseInOutExpo();
     }
 
-    public void HideMenuList()
+    public override void onDeactivate()
     {
-        Debug.Log("Hiding menu list");
-        LeanTween.scale(menuHolder.gameObject, Vector3.zero, 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
+        LeanTween.scale(menuListParent, Vector3.zero, 0.5f).setEaseInOutBack().setOnComplete(DeleteChildButtons);
     }
 
     private void DeleteChildButtons()

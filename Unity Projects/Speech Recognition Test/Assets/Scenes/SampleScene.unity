@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 104116256}
   - component: {fileID: 104116257}
   - component: {fileID: 104116258}
+  - component: {fileID: 104116261}
   - component: {fileID: 104116259}
   - component: {fileID: 104116260}
   m_Layer: 0
@@ -233,6 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   notifier: {fileID: 1804283092}
+  timerStartDelete: {fileID: 1202590509}
 --- !u!114 &104116253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,7 +397,6 @@ MonoBehaviour:
   timerPrefab: {fileID: 8741104644654111147, guid: 55c2a1a87ef2ed24fabdf3eb0c3825da,
     type: 3}
   canvas: {fileID: 1205315513}
-  createDeleteUI: {fileID: 1202590507}
 --- !u!114 &104116259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,7 +412,7 @@ MonoBehaviour:
   menuPrefab: {fileID: 7794967692626897895, guid: 63b7ad8961f019747812f491258d92bf,
     type: 3}
   menuHolder: {fileID: 113998555}
-  createDeleteUI: {fileID: 261486981}
+  menuListParent: {fileID: 1704376722}
 --- !u!114 &104116260
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,6 +428,19 @@ MonoBehaviour:
   timerDeleteUIPrefab: {fileID: 8267759531182252314, guid: 20cb49c8e6c5637468d9955586670e82,
     type: 3}
   timerDeleteListParent: {fileID: 123224396}
+--- !u!114 &104116261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104116251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f058d0e4664bce409e8f0e3718c1e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lastActiveInstance: {fileID: 0}
 --- !u!1001 &111897242
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -719,7 +733,7 @@ RectTransform:
   m_GameObject: {fileID: 261486981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1704376723}
   m_Father: {fileID: 561313132}
@@ -1805,6 +1819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1202590508}
   - component: {fileID: 1202590509}
+  - component: {fileID: 1202590510}
   m_Layer: 5
   m_Name: TimerStartDelete
   m_TagString: Untagged
@@ -1830,7 +1845,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202590509
@@ -1845,57 +1860,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3294aa54766a3e46ba8853e3aa6e82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerStartPressedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 104116252}
-        m_MethodName: StartWaitingTimerCommand
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1804283093}
-        m_MethodName: Notify
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: "\uC2DC\uAC04\uC744 \uB9D0\uD574\uC8FC\uC138\uC694(e.g.
-            \"1\uBD84 30\uCD08.\")"
-          m_BoolArgument: 0
-        m_CallState: 2
-  timerDeletePressedEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1804283093}
-        m_MethodName: Notify
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: "\uC911\uC9C0\uD560 \uD0C0\uC774\uBA38\uB97C \uC120\uD0DD\uD574\uC8FC\uC138\uC694."
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 104116258}
-        m_MethodName: ShowTimerDeleteListUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: "\uC911\uC9C0\uD560 \uD0C0\uC774\uBA38\uB97C \uC120\uD0DD\uD574\uC8FC\uC138\uC694"
-          m_BoolArgument: 0
-        m_CallState: 2
+  timerManager: {fileID: 104116258}
+  timerDeleteListVisualizer: {fileID: 104116260}
+  notificationVisualizer: {fileID: 1804283093}
+  timerDurationListener: {fileID: 1202590510}
+--- !u!114 &1202590510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202590507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352010e6cfe1d854aa198cb660d30951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voiceRecognizer: {fileID: 104116253}
+  timerManager: {fileID: 104116258}
+  notificationVisualizer: {fileID: 1804283093}
 --- !u!1 &1205315513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2237,7 +2220,7 @@ RectTransform:
   m_GameObject: {fileID: 1704376722}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 1}
   m_Children:
   - {fileID: 53210862}
   m_Father: {fileID: 261486982}

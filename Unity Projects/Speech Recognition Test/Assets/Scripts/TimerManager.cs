@@ -8,7 +8,6 @@ public class TimerManager : MonoBehaviour
 {
     public GameObject timerPrefab;
     public GameObject canvas;
-    public GameObject createDeleteUI;
     private List<GameObject> timers;
     private TimerDeleteListVisualizer timerDeleteListVisualizer;
 
@@ -42,15 +41,8 @@ public class TimerManager : MonoBehaviour
         timers.RemoveAt(timerIndex);
     }
 
-    public void ShowCreateDeleteUI()
+    public int TimerListSize()
     {
-        Debug.Log("Showing timer create/delete UI");
-        LeanTween.scale(createDeleteUI, Vector3.one, 0.5f).setEaseInOutExpo();
-        timerDeleteListVisualizer.HideList(true);
-    }
-
-    public void ShowTimerDeleteListUI()
-    {
-        timerDeleteListVisualizer.ShowList(timers.Count);
+        return timers.Count;
     }
 }
