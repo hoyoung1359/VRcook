@@ -29,6 +29,8 @@ public class CommandExecutor : MonoBehaviour
     private WorldSpaceCanvasController worldSpaceCanvas;
     public TimerStartDelete timerStartDelete;
 
+    private RecipeGuide recipeGuide;
+
     private bool isWaitingTimerCommand = false;
 
     void Start() 
@@ -93,6 +95,13 @@ public class CommandExecutor : MonoBehaviour
         {
             screenSpaceInteractionManager.DeactivateLastInteraction();
         }
+
+        // 명령어: "다음."
+        if(result.StartsWith("다음") && result.Length == 3)
+        {
+            recipeGuide.StartNextStep();
+        }
+
     }
 
     private void SelectMenuListCallback(Row[] result)
