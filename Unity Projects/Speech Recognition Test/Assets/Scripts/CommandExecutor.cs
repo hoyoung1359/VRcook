@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
-using UnityScript.Steps;
 
 /// <summary>
 /// Uses VoiceRecognizer to parse commands and execute them
